@@ -14,8 +14,6 @@ public class SettingsController implements java.io.Serializable {
     private PlayerColor secondPlayer;
 
     @FXML
-    private MenuButton color;
-    @FXML
     private TextField boardSize;
 
     public SettingsController() throws IOException {
