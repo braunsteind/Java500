@@ -1,5 +1,6 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
@@ -10,7 +11,7 @@ public class BoardController implements Initializable {
     //private GameLauncher gameLauncher;
 
     @FXML
-    private HBox root;
+    private GridPane root;
     private Board board;
 
     public BoardController() {
