@@ -12,7 +12,7 @@ public class GameLauncher {
         int size = 8;
         this.board = new Board(size);
         this.rules = new RegularRules();
-        this.display = new ConsoleDisplay();
+        this.display = new GuiDisplay();
 
         this.player1 = new LocalHumanPlayer(PlayerColor.BLACK, board, rules, display);
         this.player2 = new LocalHumanPlayer(PlayerColor.WHITE, board, rules, display);

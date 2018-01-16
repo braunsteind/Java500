@@ -1,8 +1,8 @@
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
-public class Board {
+public class Board extends GridPane {
 
     //class members
     private int size;
@@ -318,6 +318,29 @@ public class Board {
                     i1++;
                     j1--;
                 }
+            }
+        }
+    }
+
+    /**
+     * Draw the board.
+     */
+    public void draw() {
+        this.getChildren().clear();
+        int height = (int) this.getPrefHeight();
+        int width = (int) this.getPrefWidth();
+        int cellHeight = height / this.size;
+        int cellWidth = width / this.size;
+
+        //loop on the board.
+        for (int i = 0; i < this.size; i++) {
+            for (int j = 0; j < this.size; j++) {
+                if (board[i][j] == PlayerColor.WHITE)
+                    this.add(new Rectangle(cellWidth, cellHeight, Color.WHITE), j, i);
+                else if (board[i][j] == PlayerColor.BLACK)
+                    this.add(new Rectangle(cellWidth, cellHeight, Color.BLACK), j, i);
+                else
+                    this.add(new Rectangle(cellWidth, cellHeight, Color.BROWN), j, i);
             }
         }
     }

@@ -13,16 +13,26 @@ import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
 
-    public void handleNewGame() {
-        //Launch the game.
-        GameLauncher gameLauncher = new GameLauncher();
+    public void handleNewGame(ActionEvent event) {
+        //try load settings fxml.
+        try {
+            Parent settingsPage = FXMLLoader.load(getClass().getResource("board.fxml"));
+            Stage settingsStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            settingsStage.setScene(new Scene(settingsPage, 500, 400));
+            settingsStage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        /**
+         //Launch the game.
+         GameLauncher gameLauncher = new GameLauncher();
 
-        //create game runner.
-        GameRunner game = new GameRunner(gameLauncher.getBoard(), gameLauncher.getPlayer1(), gameLauncher.getPlayer2(),
-                gameLauncher.getRules(), gameLauncher.getDisplay());
+         //create game runner.
+         GameRunner game = new GameRunner(gameLauncher.getBoard(), gameLauncher.getPlayer1(), gameLauncher.getPlayer2(),
+         gameLauncher.getRules(), gameLauncher.getDisplay());
 
-        //run the game.
-        game.run();
+         //run the game.
+         game.run();**/
     }
 
     public void handleSettings(ActionEvent event) {
@@ -33,7 +43,7 @@ public class MenuController implements Initializable {
             settingsStage.setScene(new Scene(settingsPage, 500, 350));
             settingsStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         /**
          try {
