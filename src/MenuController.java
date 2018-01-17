@@ -18,7 +18,7 @@ public class MenuController implements Initializable {
         try {
             Parent settingsPage = FXMLLoader.load(getClass().getResource("board.fxml"));
             Stage settingsStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            settingsStage.setScene(new Scene(settingsPage, 500, 400));
+            settingsStage.setScene(new Scene(settingsPage, 550, 430));
             settingsStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);

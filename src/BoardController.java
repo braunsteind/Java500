@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -21,6 +22,10 @@ public class BoardController implements Initializable {
 
     @FXML
     private GridPane root;
+    @FXML
+    private VBox scoreBox;
+    @FXML
+    private Label playingPlayer;
     @FXML
     private Label player1Score;
     @FXML
@@ -39,7 +44,7 @@ public class BoardController implements Initializable {
         //................................
         //this.board = .............(get the board size from file)
 
-        this.gameLauncher = new GameLauncher(8, PlayerColor.BLACK, PlayerColor.WHITE);
+        this.gameLauncher = new GameLauncher(3, PlayerColor.BLACK, PlayerColor.WHITE);
         currentPlayer = PlayerColor.BLACK;
         player1Color = Color.BLACK;
         player2Color = Color.WHITE;
@@ -52,6 +57,15 @@ public class BoardController implements Initializable {
         drawWhereCanPut();
         root.getChildren().add(0, board);
 
+        //set the starting player.
+        if (currentPlayer == PlayerColor.BLACK) {
+            this.playingPlayer.setText("Playing player: 1");
+        } else {
+            this.playingPlayer.setText("Playing player: 2");
+        }
+
+        this.player1Score.setText("Player1 score: 2");
+        this.player2Score.setText("Player2 score: 2");
         //if game over on start.
         if (!(this.gameLauncher.getPlayer1().canPlay() || this.gameLauncher.getPlayer2().canPlay())) {
             endGame();
@@ -65,6 +79,12 @@ public class BoardController implements Initializable {
         if (checkPoint(point)) {
             //put the point.
             this.gameLauncher.getBoard().put(currentPlayer, point.getRow(), point.getColumn());
+            //change score.
+            int score1 = this.gameLauncher.getRules().getScore(PlayerColor.BLACK, this.gameLauncher.getBoard());
+            int score2 = this.gameLauncher.getRules().getScore(PlayerColor.WHITE, this.gameLauncher.getBoard());
+            this.player1Score.setText("Player1 score: " + score1);
+            this.player2Score.setText("Player2 score: " + score2);
+            //swap player.
             currentPlayer = swapColor(currentPlayer);
             this.gameLauncher.getBoard().draw(player1Color, player2Color);
             drawWhereCanPut();
@@ -98,8 +118,11 @@ public class BoardController implements Initializable {
      * @return The new current player.
      */
     private PlayerColor swapColor(PlayerColor currentPlayer) {
-        if (currentPlayer == PlayerColor.BLACK)
+        if (currentPlayer == PlayerColor.BLACK) {
+            this.playingPlayer.setText("Playing player: 2");
             return PlayerColor.WHITE;
+        }
+        this.playingPlayer.setText("Playing player: 1");
         return PlayerColor.BLACK;
     }
 
@@ -140,12 +163,14 @@ public class BoardController implements Initializable {
         else
             alert.setContentText("Tie!");
 
+
         Parent settingsPage = null;
         Stage settingsStage = null;
+
         //try load settings fxml.
         try {
             settingsPage = FXMLLoader.load(getClass().getResource("menu.fxml"));
-            settingsStage = (Stage) alert.getDialogPane().getScene().getWindow();
+            settingsStage = (Stage) player1Score.getScene().getWindow();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
