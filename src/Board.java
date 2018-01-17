@@ -1,8 +1,15 @@
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
+import static javafx.scene.paint.Color.TRANSPARENT;
+
 public class Board extends GridPane {
+
+    public static final int DIVIDE = 8;
 
     //class members
     private int size;
@@ -16,6 +23,10 @@ public class Board extends GridPane {
      * @param boardSize the board size
      */
     public Board(int boardSize) {
+        this.getChildren().clear();
+        //this.setGridLinesVisible(false);
+        //this.setGridLinesVisible(true);
+
         int i, j;
 
         this.lastPut = new Point(-3, -3);
@@ -43,6 +54,10 @@ public class Board extends GridPane {
      * @param b the board to copy
      */
     public Board(Board b) {
+        this.getChildren().clear();
+        this.setGridLinesVisible(false);
+        this.setGridLinesVisible(true);
+
         int i, j;
 
         this.size = b.size;
@@ -331,16 +346,35 @@ public class Board extends GridPane {
         int width = (int) this.getPrefWidth();
         int cellHeight = height / this.size;
         int cellWidth = width / this.size;
+        int cellRadius = (cellHeight + cellWidth) / DIVIDE;
 
         //loop on the board.
         for (int i = 0; i < this.size; i++) {
             for (int j = 0; j < this.size; j++) {
-                if (board[i][j] == PlayerColor.WHITE)
-                    this.add(new Rectangle(cellWidth, cellHeight, Color.WHITE), j, i);
-                else if (board[i][j] == PlayerColor.BLACK)
-                    this.add(new Rectangle(cellWidth, cellHeight, Color.BLACK), j, i);
-                else
-                    this.add(new Rectangle(cellWidth, cellHeight, Color.BROWN), j, i);
+
+                //draw transparent rectangles.
+                Rectangle rectangle = new Rectangle(cellWidth, cellHeight, TRANSPARENT);
+                rectangle.setStroke(Color.BLACK);
+                this.add(rectangle, j, i);
+
+                //if the color is white.
+                if (board[i][j] == PlayerColor.WHITE) {
+                    Circle circle = new Circle(cellRadius);
+                    circle.setFill(Color.BLACK);
+                    circle.setStroke(Color.BLACK);
+                    this.add(circle, j, i);
+                    this.setValignment(circle, VPos.CENTER);
+                    this.setHalignment(circle, HPos.CENTER);
+                }
+                //if the color is black.
+                else if (board[i][j] == PlayerColor.BLACK) {
+                    Circle circle = new Circle(cellRadius);
+                    circle.setFill(Color.WHITE);
+                    circle.setStroke(Color.BLACK);
+                    this.add(circle, j, i);
+                    this.setValignment(circle, VPos.CENTER);
+                    this.setHalignment(circle, HPos.CENTER);
+                }
             }
         }
     }
