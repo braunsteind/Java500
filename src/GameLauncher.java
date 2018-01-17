@@ -7,15 +7,13 @@ public class GameLauncher {
     private LocalHumanPlayer player2;
 
 
-    public GameLauncher() {
-
-        int size = 8;
+    public GameLauncher(int size, PlayerColor player1Color, PlayerColor player2Color) {
         this.board = new Board(size);
         this.rules = new RegularRules();
         this.display = new GuiDisplay();
 
-        this.player1 = new LocalHumanPlayer(PlayerColor.BLACK, board, rules, display);
-        this.player2 = new LocalHumanPlayer(PlayerColor.WHITE, board, rules, display);
+        this.player1 = new LocalHumanPlayer(player1Color, board, rules, display);
+        this.player2 = new LocalHumanPlayer(player2Color, board, rules, display);
     }
 
     public Rules getRules() {

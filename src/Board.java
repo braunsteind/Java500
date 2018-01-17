@@ -110,6 +110,7 @@ public class Board extends GridPane {
         }
         //put.
         this.board[row][col] = player;
+        ;
         //update lastPut.
         lastPut.setPoint(row, col);
         int i, j;
@@ -340,7 +341,7 @@ public class Board extends GridPane {
     /**
      * Draw the board.
      */
-    public void draw() {
+    public void draw(Color player1Color, Color player2Color) {
         this.getChildren().clear();
         int height = (int) this.getPrefHeight();
         int width = (int) this.getPrefWidth();
@@ -349,33 +350,50 @@ public class Board extends GridPane {
         int cellRadius = (cellHeight + cellWidth) / DIVIDE;
 
         //loop on the board.
-        for (int i = 0; i < this.size; i++) {
-            for (int j = 0; j < this.size; j++) {
+        for (int row = 0; row < this.size; row++) {
+            for (int col = 0; col < this.size; col++) {
 
                 //draw transparent rectangles.
                 Rectangle rectangle = new Rectangle(cellWidth, cellHeight, TRANSPARENT);
                 rectangle.setStroke(Color.BLACK);
-                this.add(rectangle, j, i);
+                this.add(rectangle, row, col);
 
-                //if the color is white.
-                if (board[i][j] == PlayerColor.WHITE) {
-                    Circle circle = new Circle(cellRadius);
-                    circle.setFill(Color.BLACK);
-                    circle.setStroke(Color.BLACK);
-                    this.add(circle, j, i);
-                    this.setValignment(circle, VPos.CENTER);
-                    this.setHalignment(circle, HPos.CENTER);
-                }
                 //if the color is black.
-                else if (board[i][j] == PlayerColor.BLACK) {
-                    Circle circle = new Circle(cellRadius);
-                    circle.setFill(Color.WHITE);
-                    circle.setStroke(Color.BLACK);
-                    this.add(circle, j, i);
-                    this.setValignment(circle, VPos.CENTER);
-                    this.setHalignment(circle, HPos.CENTER);
+                if (board[row][col] == PlayerColor.BLACK) {
+                    fillCircle(player1Color, cellRadius, row, col);
+                }
+                //if the color is white.
+                else if (board[row][col] == PlayerColor.WHITE) {
+                    fillCircle(player2Color, cellRadius, row, col);
                 }
             }
         }
+    }
+
+    private void fillCircle(Color playerColor, int cellRadius, int row, int col) {
+        Circle circle = new Circle(cellRadius);
+        circle.setFill(playerColor);
+        circle.setStroke(Color.BLACK);
+        this.add(circle, row, col);
+        this.setValignment(circle, VPos.CENTER);
+        this.setHalignment(circle, HPos.CENTER);
+    }
+
+    /**
+     * Draw in specific square.
+     *
+     * @param row   The row.
+     * @param col   The col.
+     * @param color The color.
+     */
+    public void drawSquare(int row, int col, Color color) {
+        int height = (int) this.getPrefHeight();
+        int width = (int) this.getPrefWidth();
+        int cellHeight = height / this.size;
+        int cellWidth = width / this.size;
+
+        Rectangle rectangle = new Rectangle(cellWidth, cellHeight, color);
+        rectangle.setStroke(Color.BLACK);
+        this.add(rectangle, row, col);
     }
 }

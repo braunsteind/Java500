@@ -31,5 +31,6 @@
       </MenuButton>
       <Label alignment="BOTTOM_CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
       <TextField fx:id="boardSize" onAction="#setSize" promptText="board size" GridPane.rowIndex="1" />
+      <ColorPicker GridPane.columnIndex="2" GridPane.rowIndex="1" />
    </children>
 </GridPane>
