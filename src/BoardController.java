@@ -50,8 +50,6 @@ public class BoardController implements Initializable {
 
         this.gameLauncher = new GameLauncher(sf.getBoardSize(), sf.getFirstPlayer(), sf.getSecondPlayer());
         currentPlayer = sf.getFirstPlayer();
-        System.out.println(sf.getPlayer1Color());
-        System.out.println(sf.getPlayer2Color());
         player1Color = Color.web(sf.getPlayer1Color());
         player2Color = Color.web(sf.getPlayer2Color());
         //get board.

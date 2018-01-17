@@ -9,6 +9,16 @@ import java.io.ObjectOutputStream;
 
 
 public class SettingsFile implements java.io.Serializable {
+    //if not file, set default.
+    public static final int SIZE = 8;
+    public static final PlayerColor FIRST_PLAYER = PlayerColor.BLACK;
+    public static final PlayerColor SECOND_PLAYER = PlayerColor.WHITE;
+    //Black color.
+    public static final String PLAYER1COLOR = "0x000000ff";
+    //White color.
+    public static final String PLAYER2COLOR = "0xffffffff";
+
+
     //class members
     private int boardSize;
     private PlayerColor firstPlayer;
@@ -54,26 +64,32 @@ public class SettingsFile implements java.io.Serializable {
      */
     public void load() throws IOException {
         File file = new File(this.filename);
-
-        ObjectInputStream is = null;
-        try {
-            //opening and reaind the source file
-            is = new ObjectInputStream(new FileInputStream(this.filename));
-            SettingsFile temp = (SettingsFile) is.readObject();
-            //import the loaded file data to the current SettingsFile
-            this.boardSize = temp.getBoardSize();
-            this.firstPlayer = temp.getFirstPlayer();
-            this.secondPlayer = temp.getSecondPlayer();
-            this.player1Color = temp.getPlayer1Color();
-            this.player2Color = temp.getPlayer2Color();
-        } catch (IOException e) {
-            System.out.println("Error while loading");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Problem with class");
-        } finally {
-            if (is != null) {
-                is.close();
+        //if file exist.
+        if (file.exists() && !file.isDirectory()) {
+            ObjectInputStream is = null;
+            try {
+                //opening and reaind the source file
+                is = new ObjectInputStream(new FileInputStream(this.filename));
+                SettingsFile temp = (SettingsFile) is.readObject();
+                //import the loaded file data to the current SettingsFile
+                this.boardSize = temp.getBoardSize();
+                this.firstPlayer = temp.getFirstPlayer();
+                this.secondPlayer = temp.getSecondPlayer();
+                this.player1Color = temp.getPlayer1Color();
+                this.player2Color = temp.getPlayer2Color();
+            } catch (IOException e) {
+                System.out.println("Error while loading");
+            } catch (ClassNotFoundException e) {
+                System.out.println("Problem with class");
+            } finally {
+                if (is != null) {
+                    is.close();
+                }
             }
+        }
+        //if no file, set default settings.
+        else {
+            save(SIZE, FIRST_PLAYER, SECOND_PLAYER, PLAYER1COLOR, PLAYER2COLOR);
         }
     }
 
@@ -94,13 +110,6 @@ public class SettingsFile implements java.io.Serializable {
         this.player1Color = player1Color;
         this.player2Color = player2Color;
 
-        /**
-         System.out.println("board size: " + this.boardSize);
-         System.out.println("first player: " + this.firstPlayer);
-         System.out.println("second player: " + this.secondPlayer);
-         System.out.println("player1 color: " + this.player1Color);
-         System.out.println("player2 color: " + this.player2Color);
-         **/
         File file = new File(this.filename);
         FileOutputStream fos = new FileOutputStream(file);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
