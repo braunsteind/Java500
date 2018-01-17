@@ -1,9 +1,16 @@
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -14,6 +21,10 @@ public class BoardController implements Initializable {
 
     @FXML
     private GridPane root;
+    @FXML
+    private Label player1Score;
+    @FXML
+    private Label player2Score;
     private Color player1Color;
     private Color player2Color;
     private PlayerColor currentPlayer;
@@ -40,6 +51,11 @@ public class BoardController implements Initializable {
         board.draw(player1Color, player2Color);
         drawWhereCanPut();
         root.getChildren().add(0, board);
+
+        //if game over on start.
+        if (!(this.gameLauncher.getPlayer1().canPlay() || this.gameLauncher.getPlayer2().canPlay())) {
+            endGame();
+        }
     }
 
     public void handleClick(MouseEvent event) {
@@ -52,6 +68,16 @@ public class BoardController implements Initializable {
             currentPlayer = swapColor(currentPlayer);
             this.gameLauncher.getBoard().draw(player1Color, player2Color);
             drawWhereCanPut();
+        }
+        //if no moves, change player.
+        else if (this.gameLauncher.getRules().whereCanPut(this.gameLauncher.getBoard(), currentPlayer).isEmpty()) {
+            currentPlayer = swapColor(currentPlayer);
+            drawWhereCanPut();
+        }
+
+        //check if game over.
+        if (!(this.gameLauncher.getPlayer1().canPlay() || this.gameLauncher.getPlayer2().canPlay())) {
+            endGame();
         }
     }
 
@@ -95,5 +121,36 @@ public class BoardController implements Initializable {
         for (Point p : whereCanPut) {
             this.gameLauncher.getBoard().drawSquare(p.getRow(), p.getColumn(), Color.GOLD);
         }
+    }
+
+
+    private void endGame() {
+        //set alert.
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Over");
+        alert.setHeaderText(null);
+
+        //get the winner.
+        PlayerColor winner = this.gameLauncher.getRules().winner(this.gameLauncher.getBoard());
+        //print the right message.
+        if (winner == PlayerColor.BLACK)
+            alert.setContentText("Player1 Won!");
+        else if (winner == PlayerColor.WHITE)
+            alert.setContentText("Player2 Won!");
+        else
+            alert.setContentText("Tie!");
+
+        Parent settingsPage = null;
+        Stage settingsStage = null;
+        //try load settings fxml.
+        try {
+            settingsPage = FXMLLoader.load(getClass().getResource("menu.fxml"));
+            settingsStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        alert.showAndWait();
+        settingsStage.setScene(new Scene(settingsPage, 500, 400));
+        settingsStage.show();
     }
 }
