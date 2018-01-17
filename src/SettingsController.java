@@ -1,74 +1,96 @@
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SettingsController implements java.io.Serializable {
+public class SettingsController implements Initializable {
+    public static final int SIZE = 8;
+    public static final String FILE_NAME = "data";
 
-    private static final int SIZE = 8;
+    @FXML
+    private TextField boardSizeText;
+    @FXML
+    private ColorPicker player1ColorPicker;
+    @FXML
+    private ColorPicker player2ColorPicker;
+    @FXML
+    private Label errorMsg;
 
-    private int size;
+    private int boardSize;
     private PlayerColor startingPlayer;
     private PlayerColor secondPlayer;
+    private Color player1Color;
+    private Color player2Color;
 
-    @FXML
-    private TextField boardSize;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.boardSize = SIZE;
+        player1Color = Color.WHITE;
+        player2Color = Color.WHITE;
+        startingPlayer = PlayerColor.BLACK;
+        secondPlayer = PlayerColor.WHITE;
+        this.errorMsg.setText("");
+    }
 
-    public SettingsController() throws IOException {
-        /**
-         File file = new File("settings.txt");
-
-         ObjectInputStream is = null;
-         try {
-         //opening and reading the source file
-         is = new ObjectInputStream(new FileInputStream(file));
-         SettingsController temp = (SettingsController) is.readObject();
-         //import the loaded file data to the current settings
-         this.size = temp.getSize();
-         this.startingPlayer = temp.getStartingPlayer();
-         this.secondPlayer = temp.getSecondPlayer();
-         } catch (IOException e) {
-         System.out.println("Error while loading");
-         } catch (ClassNotFoundException e) {
-         System.out.println("Problem with class");
-         } finally {
-         if (is != null) {
-         is.close();
-         }
-         }**/
+    public SettingsController() {
     }
 
     @FXML
-    public void setBlackStartingPlayer() {
+    public void setPlayer1Start() {
+        //set the starting player to black player.
         this.startingPlayer = PlayerColor.BLACK;
         this.secondPlayer = PlayerColor.WHITE;
-        System.out.println("Black is starting");
     }
 
     @FXML
-    public void setWhiteStartingPlayer() {
+    public void setPlayer2Start() {
+        //set the starting player to white player.
         this.startingPlayer = PlayerColor.WHITE;
         this.secondPlayer = PlayerColor.BLACK;
-        System.out.println("White is starting");
     }
 
     @FXML
     public void setSize() {
-        //update size in the file.....
+        this.boardSize = Integer.parseInt(this.boardSizeText.getText());
     }
 
-    public int getSize() {
-        return this.size;
+    public void setPlayer1Color() {
+        this.player1Color = this.player1ColorPicker.getValue();
     }
 
-    public PlayerColor getStartingPlayer() {
-        return this.startingPlayer;
+    public void setPlayer2Color() {
+        this.player2Color = this.player2ColorPicker.getValue();
     }
 
-    public PlayerColor getSecondPlayer() {
-        return this.secondPlayer;
+    public void handleBack() {
+        //check not the same color.
+        if (player1Color.equals(player2Color)) {
+            this.errorMsg.setText("Error: identical color");
+        } else {
+            //create Settings File.
+            SettingsFile sf = new SettingsFile(FILE_NAME);
+            try {
+                //save the file.
+                sf.save(boardSize, startingPlayer, secondPlayer, player1Color.toString(), player2Color.toString());
+
+                //change scene.
+                Parent settingsPage = FXMLLoader.load(getClass().getResource("menu.fxml"));
+                Stage settingsStage = (Stage) boardSizeText.getScene().getWindow();
+                settingsStage.setScene(new Scene(settingsPage, 500, 400));
+                settingsStage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

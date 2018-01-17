@@ -22,10 +22,14 @@ public class Board extends GridPane {
      *
      * @param boardSize the board size
      */
-    public Board(int boardSize) {
+    public Board(int boardSize, PlayerColor starter) {
+        PlayerColor second;
+        if (starter == PlayerColor.BLACK)
+            second = PlayerColor.WHITE;
+        else
+            second = PlayerColor.BLACK;
+
         this.getChildren().clear();
-        //this.setGridLinesVisible(false);
-        //this.setGridLinesVisible(true);
 
         int i, j;
 
@@ -41,10 +45,10 @@ public class Board extends GridPane {
         }
 
         //initializing starting position.
-        board[(size / 2) - 1][size / 2] = PlayerColor.BLACK;
-        board[size / 2][(size / 2) - 1] = PlayerColor.BLACK;
-        board[(size / 2) - 1][(size / 2) - 1] = PlayerColor.WHITE;
-        board[size / 2][size / 2] = PlayerColor.WHITE;
+        board[(size / 2) - 1][size / 2] = starter;
+        board[size / 2][(size / 2) - 1] = starter;
+        board[(size / 2) - 1][(size / 2) - 1] = second;
+        board[size / 2][size / 2] = second;
     }
 
     /**
@@ -55,8 +59,6 @@ public class Board extends GridPane {
      */
     public Board(Board b) {
         this.getChildren().clear();
-        this.setGridLinesVisible(false);
-        this.setGridLinesVisible(true);
 
         int i, j;
 

@@ -8,7 +8,7 @@ public class GameLauncher {
 
 
     public GameLauncher(int size, PlayerColor player1Color, PlayerColor player2Color) {
-        this.board = new Board(size);
+        this.board = new Board(size, player1Color);
         this.rules = new RegularRules();
         this.display = new GuiDisplay();
 

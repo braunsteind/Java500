@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 public class BoardController implements Initializable {
 
     public static final int WIDTH = 400;
+    public static final String FILE_NAME = "data";
 
     @FXML
     private GridPane root;
@@ -40,14 +41,19 @@ public class BoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //get the starting player's color.
-        //................................
-        //this.board = .............(get the board size from file)
+        SettingsFile sf = new SettingsFile(FILE_NAME);
+        try {
+            sf.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        this.gameLauncher = new GameLauncher(3, PlayerColor.BLACK, PlayerColor.WHITE);
-        currentPlayer = PlayerColor.BLACK;
-        player1Color = Color.BLACK;
-        player2Color = Color.WHITE;
+        this.gameLauncher = new GameLauncher(sf.getBoardSize(), sf.getFirstPlayer(), sf.getSecondPlayer());
+        currentPlayer = sf.getFirstPlayer();
+        System.out.println(sf.getPlayer1Color());
+        System.out.println(sf.getPlayer2Color());
+        player1Color = Color.web(sf.getPlayer1Color());
+        player2Color = Color.web(sf.getPlayer2Color());
         //get board.
         Board board = this.gameLauncher.getBoard();
         //set the board.
