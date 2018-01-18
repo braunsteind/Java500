@@ -1,13 +1,26 @@
 package core;
 
+/**
+ * Class for running the game.
+ */
 public class GameRunner {
 
+    //class members
     private Board board;
     private Player player1;
     private Player player2;
     private Rules rules;
     private Display display;
 
+    /**
+     * Class constructor.
+     *
+     * @param b the game board
+     * @param p1 first player
+     * @param p2 second player
+     * @param rules game rules
+     * @param dsp type of display
+     */
     public GameRunner(Board b, Player p1, Player p2, Rules rules, Display dsp) {
         this.board = b;
         this.player1 = p1;
@@ -16,6 +29,9 @@ public class GameRunner {
         this.display = dsp;
     }
 
+    /**
+     * Running the game.
+     */
     public void run() {
         Point played;
 

@@ -6,9 +6,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-
 import static javafx.scene.paint.Color.TRANSPARENT;
 
+/**
+ * Board class.
+ */
 public class Board extends GridPane {
 
     public static final int DIVIDE = 8;
@@ -278,6 +280,15 @@ public class Board extends GridPane {
         return true;
     }
 
+    /**
+     * Flip discs between given values.
+     *
+     * @param player the player that owns the new discs
+     * @param i1 starting row
+     * @param j1 starting column
+     * @param i2 ending row
+     * @param j2 ending column
+     */
     private void flipBetween(PlayerColor player, int i1, int j1, int i2, int j2) {
         int temp;
         //if same row.
@@ -374,6 +385,14 @@ public class Board extends GridPane {
         }
     }
 
+    /**
+     * Drawing player's discs.
+     *
+     * @param playerColor given player to draw
+     * @param cellRadius size of disc
+     * @param row row to draw on
+     * @param col column to draw on
+     */
     private void fillCircle(Color playerColor, int cellRadius, int row, int col) {
         Circle circle = new Circle(cellRadius);
         circle.setFill(playerColor);

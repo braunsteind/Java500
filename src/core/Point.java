@@ -1,5 +1,8 @@
 package core;
 
+/**
+ * Class for a single board cell.
+ */
 public class Point {
 
     private int row;

@@ -100,7 +100,15 @@ public class RegularRules implements Rules {
         return this.endGame;
     }
 
-
+    /**
+     * Check for possible moves of the given player.
+     *
+     * @param board game board
+     * @param player current player
+     * @param row the point's row
+     * @param col the point's column
+     * @param moves the list of moves
+     */
     private void checkSurrounding(Board board, PlayerColor player, int row, int col, ArrayList<Point> moves) {
         int size = board.getSize();
         int i, j;
@@ -228,18 +236,14 @@ public class RegularRules implements Rules {
                 moves.add(new Point(i, j));
             }
         }
-        /*
-        System.out.println();
-        int temp1, temp2;
-        for (i = 0; i < moves.size(); i++) {
-            temp1 = moves.get(i).getRow() + 1;
-            temp2 = moves.get(i).getColumn() + 1;
-            System.out.print("("+temp1+", "+temp2+")   ");
-        }
-        System.out.println(); */ // values are CORRECT HERE
     }
 
 
+    /**
+     * Removing duplicate points from the ArrayList.
+     *
+     * @param list the list of moves
+     */
     private void removeDouble(ArrayList<Point> list) {
         //loop on the squares.
         for (int i = 0; i < list.size(); i++) {

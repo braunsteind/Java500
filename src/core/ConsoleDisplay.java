@@ -1,8 +1,16 @@
 package core;
 
+/**
+ * Console display class.
+ */
 public class ConsoleDisplay implements Display {
-    public void announceWinner(PlayerColor winner) {
 
+    /**
+     * Printing the status when game ends.
+     *
+     * @param winner the winner (can be a draw)
+     */
+    public void announceWinner(PlayerColor winner) {
         if (winner == PlayerColor.BLACK) {
             System.out.println();
             System.out.println("X IS THE WINNER");
@@ -20,7 +28,11 @@ public class ConsoleDisplay implements Display {
         }
     }
 
-
+    /**
+     * Printing the board via console
+     *
+     * @param board the board to print
+     */
     public void showBoard(Board board) {
         PlayerColor color;
 
@@ -64,6 +76,11 @@ public class ConsoleDisplay implements Display {
         }
     }
 
+    /**
+     * Print a message of no moves for current player.
+     *
+     * @param color the player with no moves
+     */
     public void noMoves(PlayerColor color) {
         if (color == PlayerColor.BLACK) {
             System.out.print("X: It's your move.");
@@ -78,6 +95,12 @@ public class ConsoleDisplay implements Display {
         //cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
     }
 
+    /**
+     * Printing all possible moves for a given player.
+     *
+     * @param player the given player.
+     * @param list all his possible moves
+     */
     public void showMoves(PlayerColor player, java.util.ArrayList<Point> list) {
 
         int row, col;
@@ -105,10 +128,20 @@ public class ConsoleDisplay implements Display {
         System.out.println("Please enter your move (row col): ");
     }
 
+    /**
+     * Printing invalid input message.
+     */
     public void invalidInput() {
         System.out.print("Invalid input, please enter your move (row col): ");
     }
 
+    /**
+     * Printing the last move played.
+     *
+     * @param player who played that move
+     * @param row the row he played
+     * @param col the column he played
+     */
     public void announceMove(PlayerColor player, int row, int col) {
         if (player == PlayerColor.BLACK) {
             System.out.println("X played (" + row + "," + col + ")");
@@ -117,6 +150,11 @@ public class ConsoleDisplay implements Display {
         }
     }
 
+    /**
+     * Printing no moves message for a given player
+     *
+     * @param player the given player
+     */
     public void announceNoMve(PlayerColor player) {
         if (player == PlayerColor.BLACK) {
             System.out.println("X has no moves");

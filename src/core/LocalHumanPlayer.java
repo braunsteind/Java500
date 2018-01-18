@@ -3,8 +3,13 @@ package core;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class for local human player.
+ * Implements Player interface.
+ */
 public class LocalHumanPlayer implements Player {
 
+    //class members
     private Board board;
     private Rules rules;
     private PlayerColor color;
@@ -25,7 +30,12 @@ public class LocalHumanPlayer implements Player {
         this.display = disp;
     }
 
-
+    /**
+     * Get the player's input.
+     *
+     * @param moves current player's possible moves
+     * @return a legal playable point
+     */
     public Point getInput(ArrayList<Point> moves) {
         Point p = new Point(-2, -2);
         int row, col;
@@ -35,9 +45,7 @@ public class LocalHumanPlayer implements Player {
             row = reader.nextInt();
             col = reader.nextInt();
 
-            // CHECK IF ROW AND COL ARE NUMBERS
-
-            //fixint positions.
+            //fixing positions.
             row--;
             col--;
 
@@ -52,6 +60,11 @@ public class LocalHumanPlayer implements Player {
         }
     }
 
+    /**
+     * Play one move.
+     *
+     * @return the selected player's point
+     */
     public Point playMove() {
         Point choice = new Point(-2, -2);
         ArrayList<Point> moves;
@@ -71,14 +84,25 @@ public class LocalHumanPlayer implements Player {
         return choice;
     }
 
+    /**
+     * Get the player's color.
+     *
+     * @return current player color
+     */
     public PlayerColor getColor() {
         return this.color;
     }
 
+    /**
+     * Set the player's color
+     *
+     * @param newColor The new color.
+     */
     public void setColor(PlayerColor newColor) {
         this.color = newColor;
     }
 
+    @Override
     public boolean canPlay() {
         ArrayList<Point> currentMoves = rules.whereCanPut(this.board, this.color);
         if (currentMoves.size() == 0) {
@@ -87,6 +111,7 @@ public class LocalHumanPlayer implements Player {
         return true;
     }
 
+    @Override
     public void endPlay() {
     }
 }

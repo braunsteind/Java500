@@ -2,6 +2,9 @@ package core;
 
 import java.util.ArrayList;
 
+/**
+ * GUI display class.
+ */
 public class GuiDisplay implements Display {
     @Override
     public void announceWinner(PlayerColor winner) {

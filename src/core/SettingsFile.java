@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-
+/**
+ * Class for reading and writing of the settings file.
+ */
 public class SettingsFile implements java.io.Serializable {
     //if not file, set default.
     public static final int SIZE = 8;
@@ -36,22 +38,49 @@ public class SettingsFile implements java.io.Serializable {
         this.filename = filename;
     }
 
+    /**
+     * Board size.
+     *
+     * @return board size
+     */
     public int getBoardSize() {
         return this.boardSize;
     }
 
+    /**
+     * Returns who is the first player.
+     *
+     * @return first player
+     */
     public PlayerColor getFirstPlayer() {
         return this.firstPlayer;
     }
 
+    /**
+     * Returns who is the second player.
+     *
+     * @return second player
+     */
     public PlayerColor getSecondPlayer() {
         return this.secondPlayer;
     }
 
+    /**
+     * Returns the wanted color for the first player
+     * in a string format.
+     *
+     * @return first player color
+     */
     public String getPlayer1Color() {
         return this.player1Color;
     }
 
+    /**
+     * Returns the wanted color for the second player
+     * in a string format.
+     *
+     * @return second player color
+     */
     public String getPlayer2Color() {
         return this.player2Color;
     }
@@ -94,6 +123,8 @@ public class SettingsFile implements java.io.Serializable {
     }
 
     /**
+     * Saving the setting file.
+     *
      * @param boardSize    The board size.
      * @param firstPlayer  The starting player.
      * @param secondPlayer The second player.
@@ -110,6 +141,7 @@ public class SettingsFile implements java.io.Serializable {
         this.player1Color = player1Color;
         this.player2Color = player2Color;
 
+        //writing to a file
         File file = new File(this.filename);
         FileOutputStream fos = new FileOutputStream(file);
         ObjectOutputStream oos = new ObjectOutputStream(fos);

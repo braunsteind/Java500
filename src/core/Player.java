@@ -1,5 +1,8 @@
 package core;
 
+/**
+ * Type of player interface.
+ */
 public interface Player {
 
     /**
