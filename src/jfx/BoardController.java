@@ -1,3 +1,11 @@
+package jfx;
+
+import core.PlayerColor;
+import core.GameLauncher;
+import core.SettingsFile;
+import core.Point;
+import core.Board;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -173,7 +181,7 @@ public class BoardController implements Initializable {
 
         //try load settings fxml.
         try {
-            settingsPage = FXMLLoader.load(getClass().getResource("menu.fxml"));
+            settingsPage = FXMLLoader.load(getClass().getResource("/jfx/menu.fxml"));
             settingsStage = (Stage) player1Score.getScene().getWindow();
         } catch (IOException e) {
             throw new RuntimeException(e);

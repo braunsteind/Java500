@@ -1,4 +1,4 @@
-import javafx.scene.paint.Color;
+package core;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -71,7 +71,7 @@ public class SettingsFile implements java.io.Serializable {
                 //opening and reaind the source file
                 is = new ObjectInputStream(new FileInputStream(this.filename));
                 SettingsFile temp = (SettingsFile) is.readObject();
-                //import the loaded file data to the current SettingsFile
+                //import the loaded file data to the current core.SettingsFile
                 this.boardSize = temp.getBoardSize();
                 this.firstPlayer = temp.getFirstPlayer();
                 this.secondPlayer = temp.getSecondPlayer();
