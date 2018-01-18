@@ -4,6 +4,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -18,7 +19,7 @@ public class SettingsController implements Initializable {
     public static final String FILE_NAME = "data";
 
     @FXML
-    private TextField boardSizeText;
+    private ComboBox<Integer> boardSizeBox;
     @FXML
     private ColorPicker player1ColorPicker;
     @FXML
@@ -34,12 +35,16 @@ public class SettingsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //set default settings.
         this.boardSize = SIZE;
         player1Color = Color.WHITE;
         player2Color = Color.WHITE;
         startingPlayer = PlayerColor.BLACK;
         secondPlayer = PlayerColor.WHITE;
         this.errorMsg.setText("");
+
+        //set size options.
+        boardSizeBox.getItems().addAll(4, 6, 8, 10, 12, 14, 16, 18, 20);
     }
 
     public SettingsController() {
@@ -61,7 +66,7 @@ public class SettingsController implements Initializable {
 
     @FXML
     public void setSize() {
-        this.boardSize = Integer.parseInt(this.boardSizeText.getText());
+        this.boardSize = this.boardSizeBox.getValue();
     }
 
     public void setPlayer1Color() {
@@ -85,7 +90,7 @@ public class SettingsController implements Initializable {
 
                 //change scene.
                 Parent settingsPage = FXMLLoader.load(getClass().getResource("menu.fxml"));
-                Stage settingsStage = (Stage) boardSizeText.getScene().getWindow();
+                Stage settingsStage = (Stage) boardSizeBox.getScene().getWindow();
                 settingsStage.setScene(new Scene(settingsPage, 500, 400));
                 settingsStage.show();
             } catch (IOException e) {

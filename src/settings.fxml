@@ -27,14 +27,14 @@
     <children>
         <MenuButton mnemonicParsing="false" text="Select Starting Player" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <items>
-                <MenuItem mnemonicParsing="false" onAction="#setPlayer1Start" text="Black Player" />
-                <MenuItem mnemonicParsing="false" onAction="#setPlayer2Start" text="White Player" />
+                <MenuItem mnemonicParsing="false" onAction="#setPlayer1Start" text="Player1" />
+                <MenuItem mnemonicParsing="false" onAction="#setPlayer2Start" text="Player2" />
             </items>
         </MenuButton>
         <ColorPicker fx:id="player1ColorPicker" onAction="#setPlayer1Color" promptText="player1" GridPane.rowIndex="1" />
         <ColorPicker fx:id="player2ColorPicker" onAction="#setPlayer2Color" promptText="player2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <TextField fx:id="boardSizeText" onAction="#setSize" text="8" />
         <Button mnemonicParsing="false" onAction="#handleBack" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <Label fx:id="errorMsg" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <ComboBox fx:id="boardSizeBox" onAction="#setSize" prefWidth="150.0" promptText="board size" />
     </children>
 </GridPane>
