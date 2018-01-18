@@ -20,21 +20,24 @@
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
     <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <MenuButton mnemonicParsing="false" text="Select Starting core.Player" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <MenuButton mnemonicParsing="false" text="Select Starting" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#setPlayer1Start" text="Player1" />
                 <MenuItem mnemonicParsing="false" onAction="#setPlayer2Start" text="Player2" />
             </items>
         </MenuButton>
-        <ColorPicker fx:id="player1ColorPicker" onAction="#setPlayer1Color" promptText="player1" GridPane.rowIndex="1" />
-        <ColorPicker fx:id="player2ColorPicker" onAction="#setPlayer2Color" promptText="player2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Button mnemonicParsing="false" onAction="#handleBack" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Label fx:id="errorMsg" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <ColorPicker fx:id="player1ColorPicker" onAction="#setPlayer1Color" promptText="player1" GridPane.rowIndex="2" />
+        <ColorPicker fx:id="player2ColorPicker" onAction="#setPlayer2Color" promptText="player2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Button mnemonicParsing="false" onAction="#handleBack" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label fx:id="errorMsg" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <ComboBox fx:id="boardSizeBox" onAction="#setSize" prefWidth="150.0" promptText="board size" />
+      <Label text="Player1 Color" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+      <Label text="Player2 Color" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
     </children>
 </GridPane>
