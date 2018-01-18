@@ -20,7 +20,7 @@ public class GameLauncher {
      * @param player2Color the seocnd player
      */
     public GameLauncher(int size, PlayerColor player1Color, PlayerColor player2Color) {
-        this.board = new Board(size, player1Color);
+        this.board = new Board(size);
         this.rules = new RegularRules();
         this.display = new GuiDisplay();
         this.player1 = new LocalHumanPlayer(player1Color, board, rules, display);

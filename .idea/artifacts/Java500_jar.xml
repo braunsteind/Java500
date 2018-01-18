@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Java500:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Java500_jar</output-path>
+    <root id="archive" name="Java500.jar">
+      <element id="module-output" name="Java500" />
+    </root>
+  </artifact>
+</component>

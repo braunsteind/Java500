@@ -6,6 +6,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+
 import static javafx.scene.paint.Color.TRANSPARENT;
 
 /**
@@ -26,12 +27,12 @@ public class Board extends GridPane {
      *
      * @param boardSize the board size
      */
-    public Board(int boardSize, PlayerColor starter) {
-        PlayerColor second;
-        if (starter == PlayerColor.BLACK)
-            second = PlayerColor.WHITE;
-        else
-            second = PlayerColor.BLACK;
+    public Board(int boardSize) {
+        /**PlayerColor second;
+         if (starter == PlayerColor.BLACK)
+         second = PlayerColor.WHITE;
+         else
+         second = PlayerColor.BLACK;**/
 
         this.getChildren().clear();
 
@@ -49,10 +50,18 @@ public class Board extends GridPane {
         }
 
         //initializing starting position.
-        board[(size / 2) - 1][size / 2] = starter;
-        board[size / 2][(size / 2) - 1] = starter;
-        board[(size / 2) - 1][(size / 2) - 1] = second;
-        board[size / 2][size / 2] = second;
+        board[(size / 2) - 1][size / 2] = PlayerColor.BLACK;
+        board[size / 2][(size / 2) - 1] = PlayerColor.BLACK;
+        board[(size / 2) - 1][(size / 2) - 1] = PlayerColor.WHITE;
+        board[size / 2][size / 2] = PlayerColor.WHITE;
+
+
+        /**note: if want to change pos of stating board!
+         * //need to get PlayerColor starter from GameLauncher.
+         board[(size / 2) - 1][size / 2] = starter;
+         board[size / 2][(size / 2) - 1] = starter;
+         board[(size / 2) - 1][(size / 2) - 1] = second;
+         board[size / 2][size / 2] = second;**/
     }
 
     /**
@@ -284,10 +293,10 @@ public class Board extends GridPane {
      * Flip discs between given values.
      *
      * @param player the player that owns the new discs
-     * @param i1 starting row
-     * @param j1 starting column
-     * @param i2 ending row
-     * @param j2 ending column
+     * @param i1     starting row
+     * @param j1     starting column
+     * @param i2     ending row
+     * @param j2     ending column
      */
     private void flipBetween(PlayerColor player, int i1, int j1, int i2, int j2) {
         int temp;
@@ -389,9 +398,9 @@ public class Board extends GridPane {
      * Drawing player's discs.
      *
      * @param playerColor given player to draw
-     * @param cellRadius size of disc
-     * @param row row to draw on
-     * @param col column to draw on
+     * @param cellRadius  size of disc
+     * @param row         row to draw on
+     * @param col         column to draw on
      */
     private void fillCircle(Color playerColor, int cellRadius, int row, int col) {
         Circle circle = new Circle(cellRadius);
